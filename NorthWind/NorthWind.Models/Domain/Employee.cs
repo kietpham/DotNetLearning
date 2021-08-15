@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using NorthWind.Models.Domain.Base;
 
 #nullable disable
 
@@ -10,7 +11,7 @@ namespace NorthWind.Models.Domain
 {
     [Index(nameof(LastName), Name = "LastName")]
     [Index(nameof(PostalCode), Name = "PostalCode")]
-    public partial class Employee
+    public partial class Employee : EntityBase
     {
         public Employee()
         {
@@ -18,9 +19,9 @@ namespace NorthWind.Models.Domain
             Orders = new HashSet<Order>();
         }
 
-        [Key]
-        [Column("EmployeeID")]
-        public int EmployeeId { get; set; }
+        //[Key]
+        //[Column("EmployeeID")]
+        //public int EmployeeId { get; set; }
         [Required]
         [StringLength(20)]
         public string LastName { get; set; }

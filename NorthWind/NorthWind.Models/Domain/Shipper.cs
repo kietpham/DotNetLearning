@@ -3,21 +3,22 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using NorthWind.Models.Domain.Base;
 
 #nullable disable
 
 namespace NorthWind.Models.Domain
 {
-    public partial class Shipper
+    public partial class Shipper : EntityBase
     {
         public Shipper()
         {
             Orders = new HashSet<Order>();
         }
 
-        [Key]
-        [Column("ShipperID")]
-        public int ShipperId { get; set; }
+        //[Key]
+        //[Column("ShipperID")]
+        //public int ShipperId { get; set; }
         [Required]
         [StringLength(40)]
         public string CompanyName { get; set; }

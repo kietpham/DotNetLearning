@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using NorthWind.Models.Domain.Base;
 
 #nullable disable
 
@@ -13,7 +14,7 @@ namespace NorthWind.Models.Domain
     [Index(nameof(OrderId), Name = "OrdersOrder_Details")]
     [Index(nameof(ProductId), Name = "ProductID")]
     [Index(nameof(ProductId), Name = "ProductsOrder_Details")]
-    public partial class OrderDetail
+    public partial class OrderDetail : EntityBase
     {
         [Key]
         [Column("OrderID")]

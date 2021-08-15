@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using NorthWind.Models.Domain.Base;
 
 #nullable disable
 
@@ -10,16 +11,16 @@ namespace NorthWind.Models.Domain
 {
     [Index(nameof(CompanyName), Name = "CompanyName")]
     [Index(nameof(PostalCode), Name = "PostalCode")]
-    public partial class Supplier
+    public partial class Supplier : EntityBase
     {
         public Supplier()
         {
             Products = new HashSet<Product>();
         }
 
-        [Key]
-        [Column("SupplierID")]
-        public int SupplierId { get; set; }
+        //[Key]
+        //[Column("SupplierID")]
+        //public int SupplierId { get; set; }
         [Required]
         [StringLength(40)]
         public string CompanyName { get; set; }

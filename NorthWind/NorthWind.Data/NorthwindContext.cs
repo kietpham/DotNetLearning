@@ -40,9 +40,19 @@ namespace NorthWind.Data
         {
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
 
+            modelBuilder.Entity<Category>(entity =>
+            {
+                entity.HasIndex(e => e.CategoryName)
+                    .HasDatabaseName("CategoryName");
+                entity.Property(nameof(Category.Id)).HasColumnName("CategoryID");
+            });
+
             modelBuilder.Entity<Customer>(entity =>
             {
                 entity.Property(e => e.CustomerId).IsFixedLength(true);
+
+                // Since the real key of Customer is string, but we did inherit it and the class will have an Id property. Therefore, we need to ask the Context to ignore the property
+                entity.Ignore(nameof(Customer.Id));
             });
 
             modelBuilder.Entity<Employee>(entity =>
@@ -51,6 +61,7 @@ namespace NorthWind.Data
                     .WithMany(p => p.InverseReportsToNavigation)
                     .HasForeignKey(d => d.ReportsTo)
                     .HasConstraintName("FK_Employees_Employees");
+                entity.Property(nameof(Employee.Id)).HasColumnName("EmployeeID");
             });
 
             modelBuilder.Entity<Order>(entity =>
@@ -58,6 +69,8 @@ namespace NorthWind.Data
                 entity.Property(e => e.CustomerId).IsFixedLength(true);
 
                 entity.Property(e => e.Freight).HasDefaultValueSql("((0))");
+
+                entity.Property(nameof(Order.Id)).HasColumnName("OrderID");
 
                 entity.HasOne(d => d.Customer)
                     .WithMany(p => p.Orders)
@@ -93,6 +106,8 @@ namespace NorthWind.Data
                     .HasForeignKey(d => d.ProductId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Order_Details_Products");
+
+                entity.Ignore(nameof(OrderDetail.Id));
             });
 
             modelBuilder.Entity<Product>(entity =>
@@ -105,6 +120,8 @@ namespace NorthWind.Data
 
                 entity.Property(e => e.UnitsOnOrder).HasDefaultValueSql("((0))");
 
+                entity.Property(nameof(Product.Id)).HasColumnName("ProductID");
+
                 entity.HasOne(d => d.Category)
                     .WithMany(p => p.Products)
                     .HasForeignKey(d => d.CategoryId)
@@ -114,6 +131,16 @@ namespace NorthWind.Data
                     .WithMany(p => p.Products)
                     .HasForeignKey(d => d.SupplierId)
                     .HasConstraintName("FK_Products_Suppliers");
+            });
+
+            modelBuilder.Entity<Shipper>(entity =>
+            {
+                entity.Property(nameof(Shipper.Id)).HasColumnName("ShipperID");
+            });
+
+            modelBuilder.Entity<Supplier>(entity =>
+            {
+                entity.Property(nameof(Supplier.Id)).HasColumnName("SupplierID");
             });
 
             OnModelCreatingPartial(modelBuilder);
