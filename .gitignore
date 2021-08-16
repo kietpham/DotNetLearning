@@ -5,3 +5,7 @@ NorthWind/NorthWind.Data/obj
 NorthWind/NorthWind.Models/obj
 NorthWind/NorthWind.Service/obj
 NorthWind/NorthWind.Web/obj
+AsyncAwaitSourceCode/.vs
+AsyncAwaitSourceCode/WPFUserInterface/obj
+AdvancedAsyncSourceCode/.vs
+AdvancedAsyncSourceCode/WPFUserInterface/obj
